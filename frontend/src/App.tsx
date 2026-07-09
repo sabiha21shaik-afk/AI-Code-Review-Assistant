@@ -1,42 +1,17 @@
-import { useState } from "react";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 function App() {
-  const [code, setCode] = useState("");
-  const [review, setReview] = useState("");
-
-  const submitCode = async () => {
-    const response = await fetch("http://127.0.0.1:5000/review", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code }),
-    });
-
-    const data = await response.json();
-    setReview(data.message);
-  };
-
   return (
-    <div className="container">
-      <h1>AI Code Review Assistant</h1>
-
-      <textarea
-        placeholder="Paste your code here..."
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-      />
-
-      <button onClick={submitCode}>
-        Review Code
-      </button>
-
-      <div className="result">
-        <h2>Review Result</h2>
-        <p>{review}</p>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
   );
 }
 
