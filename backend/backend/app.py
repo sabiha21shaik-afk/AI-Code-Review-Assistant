@@ -5,6 +5,7 @@ from flask_jwt_extended import (
     create_access_token
 )
 from models import db, bcrypt, User
+from routes.upload import upload_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -19,6 +20,9 @@ app.config["JWT_SECRET_KEY"] = "mysecretkey"
 db.init_app(app)
 bcrypt.init_app(app)
 jwt = JWTManager(app)
+
+# Register Upload Blueprint
+app.register_blueprint(upload_bp)
 
 
 @app.route("/")

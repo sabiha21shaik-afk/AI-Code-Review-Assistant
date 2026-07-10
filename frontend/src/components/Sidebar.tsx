@@ -1,4 +1,4 @@
-function Sidebar() {
+function Sidebar({ setPage }: { setPage: (page: string) => void }) {
   return (
     <div
       style={{
@@ -10,11 +10,23 @@ function Sidebar() {
       }}
     >
       <h2>Menu</h2>
+
       <ul style={{ listStyle: "none", padding: 0 }}>
-        <li style={{ margin: "15px 0" }}>🏠 Dashboard</li>
-        <li style={{ margin: "15px 0" }}>📂 Upload Code</li>
-        <li style={{ margin: "15px 0" }}>📊 Reports</li>
-        <li style={{ margin: "15px 0" }}>👤 Profile</li>
+        <li onClick={() => setPage("dashboard")}>
+          🏠 Dashboard
+        </li>
+
+        <li onClick={() => setPage("upload")}>
+          📂 Upload Code
+        </li>
+
+        <li onClick={() => setPage("reports")}>
+          📊 Reports
+        </li>
+
+        <li onClick={() => setPage("profile")}>
+          👤 Profile
+        </li>
       </ul>
     </div>
   );

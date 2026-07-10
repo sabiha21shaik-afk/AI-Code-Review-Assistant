@@ -1,22 +1,16 @@
-type DashboardCardProps = {
-  title: string;
-  value: string;
-};
-
-function DashboardCard({ title, value }: DashboardCardProps) {
+function DashboardCard({ title, value }: { title: string; value: string }) {
   return (
     <div
       style={{
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-        padding: "20px",
-        margin: "10px",
-        width: "200px",
-        textAlign: "center",
+        background: "white",
+        padding: "25px",
+        width: "220px",
+        borderRadius: "15px",
+        boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
       }}
     >
       <h3>{title}</h3>
-      <p>{value}</p>
+      <h1 style={{ color: "#7c3aed" }}>{value}</h1>
     </div>
   );
 }
