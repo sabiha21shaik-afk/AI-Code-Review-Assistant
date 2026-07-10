@@ -6,14 +6,23 @@ review_bp = Blueprint("review", __name__)
 def review_code():
     data = request.get_json()
 
-    code = data.get("code", "")
+    filename = data.get("filename", "")
 
-    if not code:
+    if not filename:
         return jsonify({
-            "error": "No code provided"
+            "error": "No filename provided"
         }), 400
 
+    suggestions = [
+        "Use meaningful variable names.",
+        "Add comments to improve readability.",
+        "Follow PEP8 coding standards.",
+        "Remove unused variables if any."
+    ]
+
     return jsonify({
-        "message": "Code review completed",
-        "code_received": code
+        "message": "Code review completed successfully",
+        "filename": filename,
+        "score": "9/10",
+        "suggestions": suggestions
     })

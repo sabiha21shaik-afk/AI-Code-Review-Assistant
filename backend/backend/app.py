@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import (
     JWTManager,
@@ -6,6 +6,7 @@ from flask_jwt_extended import (
 )
 from models import db, bcrypt, User
 from routes.upload import upload_bp
+from routes.review import review_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -21,25 +22,14 @@ db.init_app(app)
 bcrypt.init_app(app)
 jwt = JWTManager(app)
 
-# Register Upload Blueprint
+# Register Blueprints
 app.register_blueprint(upload_bp)
+app.register_blueprint(review_bp)
 
 
 @app.route("/")
 def home():
     return "AI Code Review Assistant Backend Running"
-
-
-@app.route("/review", methods=["POST"])
-def review_code():
-    data = request.get_json()
-
-    code = data.get("code", "")
-
-    return jsonify({
-        "code_received": code,
-        "message": "Code review completed"
-    })
 
 
 # Register User
