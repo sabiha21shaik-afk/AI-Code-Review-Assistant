@@ -71,7 +71,7 @@ function Upload() {
     >
       <div
         style={{
-          maxWidth: "800px",
+          maxWidth: "850px",
           margin: "auto",
           background: "white",
           padding: "35px",
@@ -101,10 +101,7 @@ function Upload() {
 
         <h2>📂 Upload Code</h2>
 
-        <input
-          type="file"
-          onChange={handleFileChange}
-        />
+        <input type="file" onChange={handleFileChange} />
 
         <br />
         <br />
@@ -118,13 +115,14 @@ function Upload() {
             border: "none",
             borderRadius: "10px",
             cursor: "pointer",
+            fontSize: "16px",
           }}
         >
           🚀 Upload File
         </button>
 
         {file && (
-          <p>
+          <p style={{ marginTop: "15px" }}>
             <b>Selected:</b> {file.name}
           </p>
         )}
@@ -143,7 +141,7 @@ function Upload() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: "10px",
+                marginBottom: "12px",
                 padding: "12px",
                 background: "#f8fafc",
                 borderRadius: "10px",
@@ -160,6 +158,7 @@ function Upload() {
                   padding: "8px 18px",
                   borderRadius: "8px",
                   cursor: "pointer",
+                  fontSize: "15px",
                 }}
               >
                 ✨ Review
@@ -172,29 +171,62 @@ function Upload() {
           <>
             <hr />
 
-            <h2>🤖 AI Review Result</h2>
+            <div
+              style={{
+                background: "#eef2ff",
+                padding: "20px",
+                borderRadius: "15px",
+                marginTop: "20px",
+              }}
+            >
+              <h2
+                style={{
+                  color: "#4f46e5",
+                  marginBottom: "20px",
+                }}
+              >
+                🤖 AI Review Result
+              </h2>
 
-            <p>
-              <b>File:</b> {review.filename}
-            </p>
+              <p>
+                <b>📄 File:</b> {review.filename}
+              </p>
 
-            <p>
-              <b>Status:</b> {review.message}
-            </p>
+              <p>
+                <b>✅ Status:</b> {review.message}
+              </p>
 
-            <p>
-              ⭐ <b>AI Score:</b> {review.score}
-            </p>
+              <p>
+                <b>⭐ AI Score:</b> {review.score}
+              </p>
 
-            <h3>💡 Suggestions</h3>
+              <p>
+                <b>📄 Lines:</b> {review.lines}
+              </p>
 
-            <ul>
-              {review.suggestions.map(
-                (item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                )
-              )}
-            </ul>
+              <p>
+                <b>🔤 Characters:</b> {review.characters}
+              </p>
+
+              <h3 style={{ color: "#7c3aed" }}>
+                💡 Suggestions
+              </h3>
+
+              <ul>
+                {review.suggestions.map(
+                  (item: string, index: number) => (
+                    <li
+                      key={index}
+                      style={{
+                        marginBottom: "10px",
+                      }}
+                    >
+                      {item}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
           </>
         )}
       </div>
