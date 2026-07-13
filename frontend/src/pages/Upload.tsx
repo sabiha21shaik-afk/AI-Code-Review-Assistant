@@ -4,6 +4,7 @@ function Upload() {
   const [file, setFile] = useState<File | null>(null);
   const [files, setFiles] = useState<string[]>([]);
   const [review, setReview] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -46,18 +47,27 @@ function Upload() {
   };
 
   const reviewFile = async (filename: string) => {
-    const response = await fetch("http://127.0.0.1:5000/review", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        filename: filename,
-      }),
-    });
+    setLoading(true);
 
-    const data = await response.json();
-    setReview(data);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          filename: filename,
+        }),
+      });
+
+      const data = await response.json();
+      setReview(data);
+    } catch (error) {
+      alert("Failed to review file.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -165,6 +175,22 @@ function Upload() {
               </button>
             </div>
           ))
+        )}
+
+        {loading && (
+          <div
+            style={{
+              marginTop: "20px",
+              padding: "15px",
+              background: "#fef3c7",
+              borderRadius: "10px",
+              textAlign: "center",
+              fontWeight: "bold",
+              color: "#92400e",
+            }}
+          >
+            ⏳ Reviewing your code... Please wait.
+          </div>
         )}
 
         {review && (

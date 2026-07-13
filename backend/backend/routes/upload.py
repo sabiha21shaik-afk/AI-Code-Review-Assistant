@@ -3,10 +3,8 @@ import os
 
 upload_bp = Blueprint("upload", __name__)
 
-# Folder to save uploaded files
-UPLOAD_FOLDER = "uploads"
-
-# Create uploads folder if it doesn't exist
+# Absolute path to uploads folder
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "..", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 

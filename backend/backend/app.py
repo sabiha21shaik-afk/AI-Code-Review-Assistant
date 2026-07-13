@@ -1,15 +1,18 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import (
     JWTManager,
     create_access_token
 )
+
 from models import db, bcrypt, User
 from routes.upload import upload_bp
 from routes.review import review_bp
 
 app = Flask(__name__)
-CORS(app)
+
+# Enable CORS
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Database Configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
