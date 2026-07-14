@@ -12,19 +12,38 @@ function Sidebar({ setPage }: { setPage: (page: string) => void }) {
       <h2>Menu</h2>
 
       <ul style={{ listStyle: "none", padding: 0 }}>
-        <li onClick={() => setPage("dashboard")}>
+        <li
+          style={{ marginBottom: "15px", cursor: "pointer" }}
+          onClick={() => setPage("dashboard")}
+        >
           🏠 Dashboard
         </li>
 
-        <li onClick={() => setPage("upload")}>
+        <li
+          style={{ marginBottom: "15px", cursor: "pointer" }}
+          onClick={() => setPage("upload")}
+        >
           📂 Upload Code
         </li>
 
-        <li onClick={() => setPage("reports")}>
+        <li
+          style={{ marginBottom: "15px", cursor: "pointer" }}
+          onClick={() => setPage("history")}
+        >
+          📜 Review History
+        </li>
+
+        <li
+          style={{ marginBottom: "15px", cursor: "pointer" }}
+          onClick={() => setPage("reports")}
+        >
           📊 Reports
         </li>
 
-        <li onClick={() => setPage("profile")}>
+        <li
+          style={{ marginBottom: "15px", cursor: "pointer" }}
+          onClick={() => setPage("profile")}
+        >
           👤 Profile
         </li>
       </ul>

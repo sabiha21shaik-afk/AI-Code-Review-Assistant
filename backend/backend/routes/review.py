@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 import os
 
+from models import db, ReviewHistory
+
 review_bp = Blueprint("review", __name__)
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "..", "uploads")
@@ -53,11 +55,43 @@ def review_code():
     if len(suggestions) == 0:
         suggestions.append("Good job! No major issues found.")
 
+    score = 9
+
+    review = ReviewHistory(
+        filename=filename,
+        score=score,
+        suggestions="\n".join(suggestions)
+    )
+
+    db.session.add(review)
+    db.session.commit()
+
     return jsonify({
         "message": "Code review completed successfully",
         "filename": filename,
-        "score": "9/10",
+        "score": f"{score}/10",
         "lines": len(code.splitlines()),
         "characters": len(code),
         "suggestions": suggestions
     })
+
+
+@review_bp.route("/history", methods=["GET"])
+def review_history():
+
+    reviews = ReviewHistory.query.order_by(
+        ReviewHistory.reviewed_at.desc()
+    ).all()
+
+    history = []
+
+    for review in reviews:
+        history.append({
+            "id": review.id,
+            "filename": review.filename,
+            "score": review.score,
+            "suggestions": review.suggestions.split("\n"),
+            "reviewed_at": review.reviewed_at.strftime("%d-%m-%Y %H:%M")
+        })
+
+    return jsonify(history)

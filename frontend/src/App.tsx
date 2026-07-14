@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
+import History from "./pages/History";
 
 function App() {
   const [page, setPage] = useState("dashboard");
@@ -13,6 +14,10 @@ function App() {
 
       {page === "upload" && (
         <Upload />
+      )}
+
+      {page === "history" && (
+        <History />
       )}
     </>
   );

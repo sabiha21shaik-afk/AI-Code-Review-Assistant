@@ -5,7 +5,7 @@ from flask_jwt_extended import (
     create_access_token
 )
 
-from models import db, bcrypt, User
+from models import db, bcrypt, User, ReviewHistory
 from routes.upload import upload_bp
 from routes.review import review_bp
 
