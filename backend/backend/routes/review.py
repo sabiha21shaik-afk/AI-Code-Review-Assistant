@@ -39,23 +39,49 @@ def review_code():
         }), 500
 
     suggestions = []
+    score = 10
 
+    # Code quality checks
     if "print(" in code:
         suggestions.append("Consider replacing print() statements with proper logging.")
+        score -= 1
 
     if len(code.splitlines()) > 100:
         suggestions.append("The file is quite long. Consider splitting it into smaller functions.")
+        score -= 1
 
     if "#" not in code:
         suggestions.append("Add comments to improve readability.")
+        score -= 1
 
     if "TODO" in code:
         suggestions.append("Complete or remove TODO comments before deployment.")
+        score -= 1
+
+    if "pass" in code:
+        suggestions.append("Found unfinished code using 'pass'.")
+        score -= 1
+
+    if "except:" in code:
+        suggestions.append("Avoid using bare except statements.")
+        score -= 1
+
+    if "eval(" in code:
+        suggestions.append("Avoid using eval() because it can be unsafe.")
+        score -= 2
+
+    if "global " in code:
+        suggestions.append("Avoid excessive use of global variables.")
+        score -= 1
+
+    if len(code.strip()) == 0:
+        suggestions.append("The uploaded file is empty.")
+        score = 0
+
+    score = max(score, 0)
 
     if len(suggestions) == 0:
-        suggestions.append("Good job! No major issues found.")
-
-    score = 9
+        suggestions.append("Excellent! No major issues found.")
 
     review = ReviewHistory(
         filename=filename,

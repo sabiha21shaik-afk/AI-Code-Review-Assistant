@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import DashboardCard from "../components/DashboardCard";
 
@@ -6,6 +7,20 @@ function Dashboard({
 }: {
   setPage: (page: string) => void;
 }) {
+  const [stats, setStats] = useState({
+    total_reviews: 0,
+    average_score: 0,
+    highest_score: 0,
+    lowest_score: 0,
+  });
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/stats")
+      .then((res) => res.json())
+      .then((data) => setStats(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -44,17 +59,22 @@ function Dashboard({
           >
             <DashboardCard
               title="📄 Total Reviews"
-              value="0"
+              value={stats.total_reviews.toString()}
             />
 
             <DashboardCard
-              title="📂 Projects"
-              value="0"
+              title="⭐ Average Score"
+              value={`${stats.average_score}/10`}
             />
 
             <DashboardCard
-              title="🛡️ Security Issues"
-              value="0"
+              title="🟢 Highest Score"
+              value={`${stats.highest_score}/10`}
+            />
+
+            <DashboardCard
+              title="🔴 Lowest Score"
+              value={`${stats.lowest_score}/10`}
             />
           </div>
 
@@ -64,10 +84,15 @@ function Dashboard({
               background: "white",
               padding: "25px",
               borderRadius: "15px",
+              boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
             }}
           >
-            <h2>📋 Recent Reviews</h2>
-            <p>No reviews available.</p>
+            <h2>📊 Review Statistics</h2>
+
+            <p>📄 Total Reviews: {stats.total_reviews}</p>
+            <p>⭐ Average Score: {stats.average_score}/10</p>
+            <p>🟢 Highest Score: {stats.highest_score}/10</p>
+            <p>🔴 Lowest Score: {stats.lowest_score}/10</p>
           </div>
         </div>
       </div>
