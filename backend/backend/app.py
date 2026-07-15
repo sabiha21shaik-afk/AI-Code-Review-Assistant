@@ -5,9 +5,12 @@ from flask_jwt_extended import (
     create_access_token
 )
 
-from models import db, bcrypt, User, ReviewHistory
+from models import db, bcrypt, User
+
 from routes.upload import upload_bp
 from routes.review import review_bp
+from routes.stats import stats_bp
+from routes.report import report_bp
 
 app = Flask(__name__)
 
@@ -28,6 +31,8 @@ jwt = JWTManager(app)
 # Register Blueprints
 app.register_blueprint(upload_bp)
 app.register_blueprint(review_bp)
+app.register_blueprint(stats_bp)
+app.register_blueprint(report_bp)
 
 
 @app.route("/")
