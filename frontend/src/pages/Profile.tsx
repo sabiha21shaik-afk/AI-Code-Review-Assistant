@@ -13,7 +13,8 @@ function Profile({
 
     alert("Logged out successfully!");
 
-    setPage("dashboard");
+    // Redirect to Login page
+    setPage("login");
   };
 
   return (
@@ -25,8 +26,7 @@ function Profile({
           flex: 1,
           minHeight: "100vh",
           padding: "40px",
-          background:
-            "linear-gradient(135deg,#dbeafe,#ddd6fe,#fbcfe8)",
+          background: "linear-gradient(135deg,#dbeafe,#ddd6fe,#fbcfe8)",
         }}
       >
         <div
@@ -70,6 +70,14 @@ function Profile({
               borderRadius: "10px",
               cursor: "pointer",
               fontSize: "16px",
+              fontWeight: "bold",
+              transition: "0.3s",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = "#b91c1c";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = "#dc2626";
             }}
           >
             🚪 Logout

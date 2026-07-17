@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login() {
+function Login({ setPage }: { setPage: (page: string) => void }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,8 +29,10 @@ function Login() {
         localStorage.setItem("username", username);
 
         alert("✅ Login Successful");
+
+        setPage("dashboard");
       } else {
-        alert(data.message);
+        alert(data.message || "Invalid username or password");
       }
     } catch (error) {
       console.error(error);
@@ -45,7 +47,8 @@ function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg,#dbeafe,#ddd6fe,#fbcfe8)",
+        background:
+          "linear-gradient(135deg,#dbeafe,#bae6fd,#7dd3fc,#ffffff)",
       }}
     >
       <div
@@ -60,7 +63,7 @@ function Login() {
         <h1
           style={{
             textAlign: "center",
-            color: "#6d28d9",
+            color: "#2563eb",
           }}
         >
           🔐 Login
@@ -77,6 +80,7 @@ function Login() {
             marginTop: "20px",
             borderRadius: "10px",
             border: "1px solid #ccc",
+            boxSizing: "border-box",
           }}
         />
 
@@ -91,6 +95,7 @@ function Login() {
             marginTop: "15px",
             borderRadius: "10px",
             border: "1px solid #ccc",
+            boxSizing: "border-box",
           }}
         />
 
@@ -100,15 +105,43 @@ function Login() {
             width: "100%",
             marginTop: "20px",
             padding: "12px",
-            background: "#6d28d9",
+            background: "#2563eb",
             color: "white",
             border: "none",
             borderRadius: "10px",
             cursor: "pointer",
             fontSize: "16px",
+            fontWeight: "bold",
           }}
         >
-          Login
+          Login 🚀
+        </button>
+
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "20px",
+            color: "#475569",
+          }}
+        >
+          Don't have an account?
+        </p>
+
+        <button
+          onClick={() => setPage("register")}
+          style={{
+            width: "100%",
+            padding: "12px",
+            background: "#10b981",
+            color: "white",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+        >
+          Create New Account
         </button>
       </div>
     </div>
